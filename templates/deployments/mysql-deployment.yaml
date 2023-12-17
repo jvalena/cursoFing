@@ -18,9 +18,8 @@ spec:
         - name: mysql
           image: {{ .Values.database.deployment.repository }}:{{ .Values.database.deployment.tag }}
           env:
-          # Use secret in real usage
            - name: MYSQL_ROOT_PASSWORD
-             value: password
+             value:{{ .Values.database.deployment.rootPassword }}
           ports:
            - name: mysql
              containerPort: {{ .Values.database.service.internalPort }}

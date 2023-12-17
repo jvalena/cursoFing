@@ -31,6 +31,7 @@ database:
     repository: mysql
     tag: "5.6"
     replicaCount: 1
+    rootPassword: password
   service:
     type: ClusterIP
     protocol: TCP
