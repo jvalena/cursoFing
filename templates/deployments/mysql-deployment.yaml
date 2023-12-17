@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
+  namespace: {{ .Values.namespace }}
 spec:
   selector:
     matchLabels:
@@ -14,18 +15,18 @@ spec:
         app: mysql
     spec:
       containers:
-      - image: mysql:5.6
-        name: mysql
-        env:
+        - name: mysql
+          image: {{ .Values.database.deployment.repository }}:{{ .Values.database.deployment.tag }}
+          env:
           # Use secret in real usage
-        - name: MYSQL_ROOT_PASSWORD
-          value: password
-        ports:
-        - containerPort: 3306
-          name: mysql
-        volumeMounts:
-        - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql
+           - name: MYSQL_ROOT_PASSWORD
+             value: password
+          ports:
+           - name: mysql
+             containerPort: {{ .Values.database.service.internalPort }}
+          volumeMounts:
+           - name: mysql-persistent-storage
+             mountPath: /var/lib/mysql
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
