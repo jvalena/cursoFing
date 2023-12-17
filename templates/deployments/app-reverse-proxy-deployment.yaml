@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment  
 metadata:  
   name: app-reverse-proxy
+  namespace: {{ .Values.namespace }}
   labels:
     app: app-reverse-proxy
     category: reverse-proxy
