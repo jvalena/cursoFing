@@ -6,7 +6,7 @@ metadata:
     app: app-reverse-proxy
     category: reverse-proxy
 spec:  
-  replicas: 1
+  replicas: {{ .Values.reverseProxy.deployment.replicaCount }}
   selector:
     matchLabels:
       app: app-reverse-proxy
@@ -18,9 +18,9 @@ spec:
     spec:
       containers:
       - name: app-reverse-proxy
-        image: nginx
+        image: {{ .Values.reverseProxy.deployment.repository }}:{{ .Values.reverseProxy.deployment.tag }}
         ports:
-        - containerPort: 80
+        - containerPort: {{ .Values.reverseProxy.service.internalPort }}
         resources:
           requests:
             cpu: 100m

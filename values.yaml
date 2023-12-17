@@ -2,6 +2,32 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+namespace: default
+
+reverseProxy:
+  deployment:
+    repository: nginx
+    tag: "1.25.3"
+    replicaCount: 1
+  service:
+    type: LoadBalancer
+    protocol: TCP
+    externalPort: 80
+    internalPort: 80
+
+phpmyadmin:
+  deployment:
+    repository: phpmyadmin
+    tag: "5.2.1-apache"
+    replicaCount: 1
+  service:
+    type: ClusterIP
+    protocol: TCP
+    externalPort: 8080
+    internalPort: 80
+
+database:
+
 replicaCount: 1
 
 image:
